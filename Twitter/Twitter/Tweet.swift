@@ -22,7 +22,7 @@ class Tweet {
         id = dictionary["id_str"] as! String
         text = dictionary["text"] as? String
         retweetCount = (dictionary["retweet_count"] as? Int) ?? 0
-        favoritesCount = (dictionary["favorites_count"] as? Int) ?? 0
+        favoritesCount = (dictionary["favourites_count"] as? Int) ?? 0
         retweeted = dictionary["retweeted"] as! Bool
         favorited = dictionary["favorited"] as! Bool
         

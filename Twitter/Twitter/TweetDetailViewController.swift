@@ -16,6 +16,8 @@ class TweetDetailViewController: UIViewController {
     @IBOutlet weak var tweettext: UILabel!
     @IBOutlet weak var retweetbutton: UIButton!
     @IBOutlet weak var favoritebutton: UIButton!
+    @IBOutlet weak var retweetcount : UILabel!
+    @IBOutlet weak var favouritecount : UILabel!
     
     var tweet : Tweet?
     var currentUser : User?
@@ -53,6 +55,9 @@ class TweetDetailViewController: UIViewController {
             self.favoritebutton.setBackgroundImage(#imageLiteral(resourceName: "liked"), for: .normal)
         }
         
+        self.retweetcount.text = "\(tweet?.retweetCount ?? 0)"
+        self.favouritecount.text = "\(tweet?.favoritesCount ?? 0)"
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -88,6 +93,7 @@ class TweetDetailViewController: UIViewController {
                 print("liked!")
                 self.tweet?.favorited = true
                 self.favoritebutton.setBackgroundImage(#imageLiteral(resourceName: "liked"), for: .normal)
+                self.tweet?.favoritesCount += 1
             }, failure: { (error:Error) in
                 print(error.localizedDescription)
             })
@@ -96,10 +102,12 @@ class TweetDetailViewController: UIViewController {
                 print("liked!")
                 self.tweet?.favorited = false
                 self.favoritebutton.setBackgroundImage(#imageLiteral(resourceName: "unliked"), for: .normal)
+                self.tweet?.favoritesCount -= 1
             }, failure: { (error:Error) in
                 print(error.localizedDescription)
             })
         }
+        self.favouritecount.text = "\(tweet?.favoritesCount ?? 0)"
     }
     @IBAction func showRetweetActionSheet(_ sender: Any) {
         // 1
@@ -115,6 +123,8 @@ class TweetDetailViewController: UIViewController {
                     print("Retweet!")
                     self.tweet?.retweeted = true
                     self.retweetbutton.setBackgroundImage(#imageLiteral(resourceName: "retweeted"), for: .normal)
+                    self.tweet?.retweetCount += 1
+                    self.retweetcount.text = "\(self.tweet?.retweetCount ?? 0)"
                 }, failure: { (error:Error) in
                     print(error.localizedDescription)
                 })
@@ -131,6 +141,8 @@ class TweetDetailViewController: UIViewController {
                         print("Unretweet!")
                         self.tweet?.retweeted = false
                         self.retweetbutton.setBackgroundImage(#imageLiteral(resourceName: "retweet"), for: .normal)
+                        self.tweet?.retweetCount -= 1
+                        self.retweetcount.text = "\(self.tweet?.retweetCount ?? 0)"
                     }, failure: { (error:Error) in
                         print(error.localizedDescription)
                     })

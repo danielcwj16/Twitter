@@ -159,7 +159,7 @@ class TweetsViewController: UIViewController ,UITableViewDataSource,UITableViewD
     
     @IBAction func onLogout(sender: Any){
         TwitterClient.sharedInstance.logOut()
-        performSegue(withIdentifier: "unwindSegueToLoginVC", sender: self)
+        performSegue(withIdentifier: "unwindSeguiToLoginVC", sender: self)
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if(segue.identifier == "toNewTweetVC"){
